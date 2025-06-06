@@ -2,11 +2,15 @@ package br.com.alura.Screenmatch;
 //ApiKey = 3b627f3f
 import br.com.alura.Screenmatch.model.DadosEpisodio;
 import br.com.alura.Screenmatch.model.DadosSerie;
+import br.com.alura.Screenmatch.model.DadosTemporada;
 import br.com.alura.Screenmatch.service.ConsumoApi;
 import br.com.alura.Screenmatch.service.ConverteDados;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class ScreenmatchApplication implements CommandLineRunner {
@@ -29,5 +33,17 @@ public class ScreenmatchApplication implements CommandLineRunner {
 		json = consumoApi.obterDados("https://www.omdbapi.com/?t=Supernatural&season=1&episode=2&apikey=3b627f3f");
 		DadosEpisodio dadosEpisodio = conversor.obterDados(json,DadosEpisodio.class);
 		System.out.println(dadosEpisodio);
+
+		List<DadosTemporada> temporadas = new ArrayList<>();
+
+
+		for (int i = 1; i<= dados.totalTemporadas(); i++){
+			json = consumoApi.obterDados("https://www.omdbapi.com/?t=Supernatural&season="+ i +"&apikey=3b627f3f");
+			DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
+			temporadas.add(dadosTemporada);
+
+
+		}
+		temporadas.forEach(System.out::println);
 	}
 }
