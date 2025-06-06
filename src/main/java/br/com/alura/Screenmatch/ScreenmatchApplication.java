@@ -1,5 +1,6 @@
 package br.com.alura.Screenmatch;
 //ApiKey = 3b627f3f
+import br.com.alura.Screenmatch.model.DadosEpisodio;
 import br.com.alura.Screenmatch.model.DadosSerie;
 import br.com.alura.Screenmatch.service.ConsumoApi;
 import br.com.alura.Screenmatch.service.ConverteDados;
@@ -25,7 +26,8 @@ public class ScreenmatchApplication implements CommandLineRunner {
 		ConverteDados conversor = new ConverteDados();
 		DadosSerie dados = conversor.obterDados(json, DadosSerie.class);
 		System.out.println(dados);
-
-
+		json = consumoApi.obterDados("https://www.omdbapi.com/?t=Supernatural&season=1&episode=2&apikey=3b627f3f");
+		DadosEpisodio dadosEpisodio = conversor.obterDados(json,DadosEpisodio.class);
+		System.out.println(dadosEpisodio);
 	}
 }
